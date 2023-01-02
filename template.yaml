@@ -29,11 +29,17 @@ Resources:
   MyWebsite:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
+      AccessControl: Private
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
       BucketName: www.joshgann.com
+
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: "Serverless website in S3"
       
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -44,7 +50,8 @@ Resources:
         Statement:
           - Sid: PublicReadForGetBucketObjects
             Effect: Allow
-            Principal: "*"
+            Principal:
+              AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
             Action: "s3:GetObject"
             Resource: !Join
               - ""
@@ -52,6 +59,30 @@ Resources:
                 - !Ref MyWebsite
                 - /*
       Bucket: !Ref MyWebsite
+  
+  MyDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        DefaultCacheBehavior:
+          Compress: 'true'
+          ViewerProtocolPolicy: redirect-to-https
+          TargetOriginId: s3-website
+          DefaultTTL: 86400
+          MinTTL: 1
+          MaxTTL: 86400
+          ForwardedValues:
+            QueryString: false
+        PriceClass: PriceClass_100
+        Origins:
+          - DomainName: !GetAtt MyWebsite.DomainName
+            Id: s3-website
+            S3OriginConfig:
+              OriginAccessIdentity:
+                Fn::Sub: 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
+        Enabled: "true"
+        DefaultRootObject: index.html
+        HttpVersion: http2
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
