@@ -4,6 +4,8 @@ Description: >
   project: joshgann-site
   description: Creating a website to host my resume in AWS
 
+# TODO: Split config and template, use more parameters
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -64,6 +66,11 @@ Resources:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
+        ViewerCertificate:
+          AcmCertificateArn: arn:aws:acm:us-east-1:499376257402:certificate/2a2ac451-d896-4576-8bc8-db4ec097ec78
+          SslSupportMethod: sni-only
+        Aliases:
+          - www.joshgann.com
         DefaultCacheBehavior:
           Compress: 'true'
           ViewerProtocolPolicy: redirect-to-https
@@ -83,6 +90,26 @@ Resources:
         Enabled: "true"
         DefaultRootObject: index.html
         HttpVersion: http2
+
+  Route53Record:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName: joshgann.com.
+      RecordSets:
+        - Name: www.joshgann.com
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt MyDistribution.DomainName
+  
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: "*.joshgann.com"
+      DomainValidationOptions:
+        - DomainName: joshgann.com
+          HostedZoneId: Z06569293TVGL8UW1FLSE
+      ValidationMethod: DNS
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
