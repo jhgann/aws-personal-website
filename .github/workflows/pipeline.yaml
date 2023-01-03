@@ -2,12 +2,16 @@ name: Pipeline
 
 on:
   push:
+    paths-ignore:
+      - website/**
     branches:
       - 'main'
       - 'feature**'
   delete:
     branches:
       - 'feature**'
+    paths-ignore:
+      - website/**
 
 env:
   PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
