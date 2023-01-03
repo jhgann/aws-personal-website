@@ -162,6 +162,24 @@ section:last-child {
 	margin-bottom: 3px;
 }
 
+.cert-thumb {
+    float: left;
+	margin-top: -10px;
+}
+.cert-thumb img {
+    display: block;
+	height: 80px;
+	width: 80px;
+}
+.cert-content {
+    margin-left: 90px
+}
+
+.cert-title {
+    margin-left: 90px;
+	margin-top: 10px;
+}
+
 @media all and (min-width: 602px) and (max-width: 800px) {
 	#headshot {
 		display: none;
