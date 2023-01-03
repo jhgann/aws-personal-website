@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - website/**
+      - .github/workflows/website.yaml
     branches:
       - 'main'
       - 'feature**'
@@ -11,6 +12,7 @@ on:
       - 'feature**'
     paths:
       - website/**
+      - .github/workflows/website.yaml
 jobs:
   run:
     runs-on: ubuntu-latest
