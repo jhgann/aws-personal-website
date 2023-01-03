@@ -1,0 +1,40 @@
+name: Website Pipeline
+on:
+  push:
+    paths:
+      - website/**
+    branches:
+      - 'main'
+      - 'feature**'
+  delete:
+    branches:
+      - 'feature**'
+    paths:
+      - website/**
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+        - uses: actions/checkout@v3
+
+        - name: Install dependencies
+          run: yarn
+
+        - name: Build
+          run: yarn build
+
+        - name: Deploy
+          uses: reggionick/s3-deploy@v3
+          with:
+            folder: website
+            bucket: ${{ secrets.S3_BUCKET }}
+            bucket-region: ${{ secrets.S3_BUCKET_REGION }}
+            dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+            invalidation: /
+            delete-removed: false
+            no-cache: false
+            private: true
+            filesToInclude: ".*/*,*/*,**"
