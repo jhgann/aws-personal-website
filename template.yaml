@@ -101,7 +101,7 @@ Resources:
     Properties:
       DistributionConfig:
         ViewerCertificate:
-          AcmCertificateArn: !GetAtt ACMCertificate.Arn
+          AcmCertificateArn: !Ref ACMCertificate
           SslSupportMethod: sni-only
         Aliases:
           - www.joshgann.com
