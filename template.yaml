@@ -149,8 +149,6 @@ Resources:
       AttributeDefinitions: 
         - AttributeName: "Id"
           AttributeType: "S"
-        - AttributeName: "visitcount"
-          AttributeType: "N"
       KeySchema: 
         - AttributeName: "Id"
           KeyType: "HASH"
