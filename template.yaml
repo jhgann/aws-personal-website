@@ -147,16 +147,15 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties: 
       AttributeDefinitions: 
-        - 
-          AttributeName: "visitcount"
+        - AttributeName: "Id"
+          AttributeType: "S"
+        - AttributeName: "visitcount"
           AttributeType: "N"
       KeySchema: 
-        - 
-          AttributeName: "Id"
+        - AttributeName: "Id"
           KeyType: "HASH"
       BillingMode: PAY_PER_REQUEST
       TableName: !If ["IsProduction", "ResumeCounter", "ResumeCounterDev"]
-
 
 Outputs:
   VisitorCountApi:
