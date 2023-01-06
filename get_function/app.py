@@ -9,8 +9,8 @@ table = dynamodb.Table(tableName)
 def lambda_handler(event, context):
 
     response = table.query(
-        KeyConditionExpression=Key('ID').eq('visitors'))
-    count = response['Items'][0]['visitors']
+        KeyConditionExpression=Key('Id').eq('visitcount'))
+    count = response['Items'][0]['visitcount']
     
     return {
         'statusCode': 200,

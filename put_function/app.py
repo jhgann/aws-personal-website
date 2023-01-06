@@ -21,7 +21,7 @@ def lambda_handler(event, context):
 
     try:
         response = table.update_item(     
-            Key={'ID': 'visitcount'},   
+            Key={'Id': 'visitcount'},   
             UpdateExpression='ADD ' + 'visitcount' + ' :incr',
             ExpressionAttributeValues={':incr': 1},    
             ReturnValues="UPDATED_NEW"
@@ -32,6 +32,9 @@ def lambda_handler(event, context):
             'body': err.response,
             'headers': {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Credentials': '*',
             },
         }
     else:
