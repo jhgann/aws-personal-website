@@ -1,4 +1,4 @@
-import json
+import simplejson as json
 import boto3
 import os
 from botocore.exceptions import ClientError
@@ -17,8 +17,6 @@ def respond(err, res=None):
     }
 
 def lambda_handler(event, context):
-    print("Received event: " + json.dumps(event, indent=2))
-
     try:
         response = table.update_item(     
             Key={'Id': 'visitcount'},   
@@ -38,10 +36,9 @@ def lambda_handler(event, context):
             },
         }
     else:
-        print("Response returned: " + response)
         return {
             "statusCode": 200,
             "body": json.dumps({
-                "result": response['Attributes'][0]
+                "result": response['Attributes']
             })
         }
