@@ -1,4 +1,3 @@
-import simplejson as json
 import boto3
 import os
 from botocore.exceptions import ClientError
@@ -6,15 +5,6 @@ from botocore.exceptions import ClientError
 tableName = os.environ['TABLE_NAME']
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(tableName)
-
-def respond(err, res=None):
-    return {
-        'statusCode': '500' if err else '200',
-        'body': err.message if err else json.dumps(res),
-        'headers': {
-            'Content-Type': 'application/json',
-        },
-    }
 
 def lambda_handler(event, context):
     try:
@@ -36,9 +26,8 @@ def lambda_handler(event, context):
             },
         }
     else:
+        count = response['Attributes'][0]['visitcount']
         return {
             "statusCode": 200,
-            "body": json.dumps({
-                "result": response['Attributes']
-            })
+            "body": count
         }
