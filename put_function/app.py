@@ -38,9 +38,10 @@ def lambda_handler(event, context):
             },
         }
     else:
+        print("Response returned: " + response)
         return {
             "statusCode": 200,
             "body": json.dumps({
-                "result": response['Attributes']
+                "result": response['Attributes'][0]
             })
         }
