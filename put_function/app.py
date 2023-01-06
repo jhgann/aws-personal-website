@@ -21,7 +21,7 @@ def lambda_handler(event, context):
 
     try:
         response = table.update_item(     
-            Key={'ID': 'visitors'},   
+            Key={'ID': 'visitcount'},   
             UpdateExpression='ADD ' + 'visitcount' + ' :incr',
             ExpressionAttributeValues={':incr': 1},    
             ReturnValues="UPDATED_NEW"
