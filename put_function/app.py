@@ -26,7 +26,7 @@ def lambda_handler(event, context):
             },
         }
     else:
-        count = response['Attributes'][0]['visitcount']
+        count = response['Attributes']['visitcount']
         return {
             "statusCode": 200,
             "body": count
