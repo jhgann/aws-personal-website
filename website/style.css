@@ -26,6 +26,13 @@ p {
 	color: #444;
 }
 
+#visitcount {
+	font-size: 1em;
+	line-height: 1.4em;
+	margin-bottom: 20px;
+	color: #444;
+}
+
 #cv {
 	width: 90%;
 	max-width: 1000px;
@@ -255,6 +262,10 @@ section:last-child {
 @media print {
     #cv {
         width: 100%;
+    }  
+    .no-print, .no-print *
+    {
+        display: none !important;
     }
 }
 
