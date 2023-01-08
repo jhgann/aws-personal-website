@@ -22,12 +22,18 @@ def lambda_handler(event, context):
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Credentials': '*',
-            },
+                'Access-Control-Allow-Credentials': '*'
+            }
         }
     else:
         count = response['Attributes']['visitcount']
         return {
             "statusCode": 200,
-            "body": count
+            "body": count,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Credentials': '*'
+            }
         }
