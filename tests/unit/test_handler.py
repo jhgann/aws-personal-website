@@ -4,15 +4,15 @@ import pytest
 from get_function import app as app_get
 from put_function import app as app_put
 
-@pytest.fixture()
-def table_name(self):
-    """ Get the API Gateway URL from Cloudformation Stack outputs """
-    table_name = os.environ.get("TABLE_NAME")
+# @pytest.fixture()
+# def table_name(self):
+#     """ Get the API Gateway URL from Cloudformation Stack outputs """
+#     table_name = os.environ.get("TABLE_NAME")
 
-    if table_name is None:
-        raise ValueError('Please set the AWS_SAM_STACK_NAME environment variable to the name of your stack')
+#     if table_name is None:
+#         raise ValueError('Please set the TABLE_NAME environment variable to the name of your database table')
 
-    return table_name
+#     return table_name
 
 @pytest.fixture()
 def api_get_event():
