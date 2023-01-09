@@ -259,7 +259,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-        run: python -m pytest tests/integration -v
+          python -m pytest tests/integration -v
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
