@@ -37,9 +37,15 @@ class TestApiGateway:
 
         return api_outputs[0]["OutputValue"]  # Extract url from stack outputs
 
-    def test_api_gateway(self, api_gateway_url):
-        """ Call the API Gateway endpoint and check the response """
-        response = requests.get(api_gateway_url + '/get')
+    def test_api_gateway_get(self, api_gateway_url):
+        response = requests.get(api_gateway_url + '/count')
+        assert response.status_code == 200
+        assert response.json() > 0
 
-        # assert response.status_code == 200
-        # assert response.json() == {"message": "hello world"}
+    def test_api_gateway_post(self, api_gateway_url):
+        responseGet = requests.get(api_gateway_url + '/count')
+        getValue = responseGet.json()
+
+        response = requests.post(api_gateway_url + '/count')
+        assert response.status_code == 200
+        assert response.json() == getValue + 1
