@@ -42,6 +42,8 @@ jobs:
   test:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    env:
+      TABLE_NAME: ResumeCounterDev
     steps:
       - uses: actions/checkout@v2
 
@@ -245,6 +247,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: [deploy-testing]
     runs-on: ubuntu-latest
+    env:
+      TABLE_NAME: ResumeCounterDev
     steps:
       - uses: actions/checkout@v2
 
