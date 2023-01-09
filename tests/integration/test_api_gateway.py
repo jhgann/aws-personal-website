@@ -5,7 +5,7 @@ import pytest
 import requests
 
 """
-Make sure env variable AWS_SAM_STACK_NAME exists with the name of the stack we are going to test. 
+Make sure env variable TESTING_STACK_NAME exists with the name of the stack we are going to test. 
 """
 
 
@@ -14,10 +14,10 @@ class TestApiGateway:
     @pytest.fixture()
     def api_gateway_url(self):
         """ Get the API Gateway URL from Cloudformation Stack outputs """
-        stack_name = os.environ.get("AWS_SAM_STACK_NAME")
+        stack_name = os.environ.get("TESTING_STACK_NAME")
 
         if stack_name is None:
-            raise ValueError('Please set the AWS_SAM_STACK_NAME environment variable to the name of your stack')
+            raise ValueError('Please set the TESTING_STACK_NAME environment variable to the name of your stack')
 
         client = boto3.client("cloudformation")
 
