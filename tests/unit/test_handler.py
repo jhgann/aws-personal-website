@@ -6,7 +6,7 @@ from put_function import app as app_put
 
 @pytest.fixture()
 def table_name(self):
-    """ Get the API Gateway URL from Cloudformation Stack outputs """
+    """ Here we are validating that the TABLE_NAME env variable has been set. """
     table_name = os.environ.get("TABLE_NAME")
 
     if table_name is None:
