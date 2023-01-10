@@ -23,7 +23,7 @@ The development flow of the architecture is:
 - A developer pushes a change to the github repository.
 - Either the application or website CI/CD pipeline is triggered.
 - The pipelines follow this flow:
-  - Obtain AWS credentails necessary to execute the pipeline.
+  - Obtain AWS credentials necessary to execute the pipeline.
   - Run unit tests against the local functions.
   - Deploy changes to the development stack in AWS via CloudFormation.
   - Run integration tests against the development environment.
@@ -41,7 +41,7 @@ The user flow of hte architecture is:
 
 ## Building this website
 
-Recently, I completed the AWS Solution Architect - Associate certification, but wanted more hands on experience building in AWS.  I discovered the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/) while working on a few personal projects and tutiorials.  I had also recently completed the [Complete AWS SAM Workshop](https://catalog.workshops.aws/complete-aws-sam/en-US), so using the Serverless Application Model along with the resume challenge felt like a good fit.
+Recently, I completed the AWS Solution Architect - Associate certification, but wanted more hands on experience building in AWS.  I discovered the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/) while working on a few personal projects and tutorials.  I had also recently completed the [Complete AWS SAM Workshop](https://catalog.workshops.aws/complete-aws-sam/en-US), so using the Serverless Application Model along with the resume challenge felt like a good fit.
 
 ## My development flow
 ### Static website
@@ -62,7 +62,7 @@ Recently, I completed the AWS Solution Architect - Associate certification, but 
 - Route 53 - to configure the domain name and link up the CF Distribution and SSL Certificate.
 
 ### CI/CD pipeline
-- After running the deployments from my local box and getting the basics setup, it was time to move this projet to github, and establish a CI/CD pipeline.
+- After running the deployments from my local box and getting the basics setup, it was time to move this project to github, and establish a CI/CD pipeline.
 - I set up this repo, and made the initial commit.
 - Next, I used the SAM CLI to create the application pipeline, and created the necessary secrets in my github repo to enable the pipeline to access the AWS account.
 - Once I was fairly confident that the pipeline would work, I used the SAM CLI to delete the existing stack in AWS.
@@ -72,15 +72,15 @@ Recently, I completed the AWS Solution Architect - Associate certification, but 
 - I decided to build a separate pipeline to deploy the static website contents, so code changes to the application or website did not affect each other.
 - This wasn't too difficult in the end.
 - I only needed to add the additional pipeline, then setup some path include and ignore patterns so the correct pipeline was triggered by the file changes.
-- I also used the `reggionick/s3-deploy@v3` action to handle the deployment action and ensure the files are still private, and only accessable by the CloudFront distribution.
+- I also used the `reggionick/s3-deploy@v3` action to handle the deployment action and ensure the files are still private, and only accessible by the CloudFront distribution.
 - This action is also used to invalidate the cached files in CloudFront, so that changes to the static files are immediately seen on the web. 
 
 ### Application development
 - Now I wanted to get the application side working.
-- I added the DynamoDB tables first and setup the Lambda funciton to pick up the correct table name depending on whether the dev or prod deployment was running.
+- I added the DynamoDB tables first and setup the Lambda function to pick up the correct table name depending on whether the dev or prod deployment was running.
 - The Lambda function was next and it's job was just to increment a value in the database and pass the new value back to the caller.
 - The SAM template made it fairly simple to attach the Lambda to an endpoint in the API Gateway, as well as add the necessary permissions for the Lambda to access the DynamoDB table.
-- Once I got the Gateway API - Lambda - DyanmoDB tested and working, I added the javascript to the website to POST to the API and update the page with the repsonse.
+- Once I got the Gateway API - Lambda - DynamoDB tested and working, I added the javascript to the website to POST to the API and update the page with the response.
 
 
 ## Taking it further
