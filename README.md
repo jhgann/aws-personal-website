@@ -5,6 +5,10 @@
 
 This website is running at https://www.joshgann.com
 
+## Motivation
+Recently, I completed the AWS Solution Architect - Associate certification, but wanted more hands on experience building in AWS.  I discovered the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/) while working on a few personal projects and tutorials.  I had also recently completed the [Complete AWS SAM Workshop](https://catalog.workshops.aws/complete-aws-sam/en-US), so using the Serverless Application Model along with the resume challenge felt like a good fit.  In the end, this project was incredibly useful as a learning tool, and quite interesting technically.
+
+## Repository Contents
 This project contains source code and supporting files for a serverless application that was built using the AWS Serverless Application Model (SAM). It includes the following files and folders:
 
 - get_function - Code for a Lambda function to get data from the database.
@@ -38,10 +42,6 @@ The user flow of hte architecture is:
 - API Gateway proxies this request to a Lambda function.
 - The Lambda function updates a visitor count value in DynamoDB and returns the updated value back to API Gateway, which returns it back to the browser.
 - The browser then updates this value on the page. 
-
-## Building this website
-
-Recently, I completed the AWS Solution Architect - Associate certification, but wanted more hands on experience building in AWS.  I discovered the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/) while working on a few personal projects and tutorials.  I had also recently completed the [Complete AWS SAM Workshop](https://catalog.workshops.aws/complete-aws-sam/en-US), so using the Serverless Application Model along with the resume challenge felt like a good fit.
 
 ## My development flow
 ### Static website
@@ -93,7 +93,6 @@ While this example is fairly complete there are some things that would be needed
 
 
 ## Resources
-
 See the [AWS SAM developer guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) for an introduction to SAM specification, the SAM CLI, and serverless application concepts.
 
 Next, you can use AWS Serverless Application Repository to deploy ready to use Apps that go beyond hello world samples and learn how authors developed their applications: [AWS Serverless Application Repository main page](https://aws.amazon.com/serverless/serverlessrepo/)
