@@ -29,7 +29,7 @@ The development flow of the architecture is:
   - Run integration tests against the development environment.
   - Deploy changes to the production stack in AWS via CloudFormation.
 
-The user flow o fhte architecture is:
+The user flow of hte architecture is:
 - The user opens the website at https://www.joshgann.com
 - The domain is registered in Route 53, which is linked to a CloudFront distribution.
 - The CloudFront distribution contains a cache of the static website files hosted in S3.
